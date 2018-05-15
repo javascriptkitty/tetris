@@ -35,15 +35,18 @@
 .L-piece {
   background-color: rgb(244,145,61);
 }
+
 .J-piece {
   background-color: rgb(239,112,184);
 }
 .O-piece {
   background-color: rgb(254,246,92);
 }
+
 .T-piece {
   background-color: rgb(147,58,144);
 }
+
 
 </style>
 <script>
@@ -61,7 +64,7 @@ function getClassForPiece(piece) {
 var piece = null;
 
 
-var TEMPO = 300;
+var TEMPO = 1000;
 
 window.onload = function() {
   initializeGame();
@@ -326,13 +329,24 @@ function movePieceToRight(piece) {
     drawPiece(piece, "cube " + getClassForPiece(piece));
   }
 }
+
+function movePieceDown(piece){
+  if (canPushPieceDown(piece)) {
+    erasePiece(piece);
+    piece.rowNum = piece.rowNum + 1;
+    drawPiece(piece, "cube " + getClassForPiece(piece));
+  }
+}
+
+
 function getBoundingBoxForPiece(piece){
   var squares = getSquaresForPiece(piece);
-  var left, right;
+  var left, right, down;
 
   for (i = 0; i < squares.length; i++){
-    var square = squares[i]; // [0,3]
+    var square = squares[i]; // [0,3] 0-row, 3-col
     var col = square[1];
+    var row = square[0];
 
     if (left == null) {
       left = col;
@@ -345,10 +359,16 @@ function getBoundingBoxForPiece(piece){
     } else {
       right = Math.max(right, col);
     }
+    if (down == null) {
+      down = row;
+    } else {
+      down = Math.max(down, row);
+    }
+
 
   }
 
-  return [left, right];
+  return [left, right, down];
 }
 function handleKey(event) {
   if (event.key == "ArrowLeft") {
@@ -357,6 +377,11 @@ function handleKey(event) {
   else if (event.key == "ArrowRight"){
     movePieceToRight(piece);
   }
+  else if (event.key == "ArrowDown"){
+    movePieceDown(piece);
+  }
+
+
 }
 
 </script>
