@@ -1,0 +1,42 @@
+/*
+  This file contains the styling for the game
+*/
+.cube {
+  width: 25px;
+  height: 25px;
+  background-color: rgba(33,33,33, 0.2);
+  margin: 2px;
+  border: 1px solid black;
+  display: inline-block;
+  transition: background-color 1s;
+}
+
+.color-cube {
+  background-color: red;
+}
+
+.I-piece {
+  background-color: rgb(89,225,250);
+}
+
+.S-piece {
+  background-color: rgb(231,63,42);
+}
+.Z-piece {
+  background-color: rgb(122,173,69);
+}
+
+.L-piece {
+  background-color: rgb(244,145,61);
+}
+
+.J-piece {
+  background-color: rgb(239,112,184);
+}
+.O-piece {
+  background-color: rgb(254,246,92);
+}
+
+.T-piece {
+  background-color: rgb(147,58,144);
+}
