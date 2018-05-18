@@ -78,15 +78,23 @@ function getSquare(rowNum, colNum) {
   return [rowNum, colNum];
 }
 
-function getSquaresForI(piece) {
-  var squares = [];
-
-  for (i = 0; i < 4; i++) {
-    var square = getSquare(piece.rowNum, piece.colNum + i);
-    squares.push(square);
+// offsets the squares by rowNum, colNum
+function offsetSquares(piece, squares) {
+  for (var i = 0; i < squares.length; i++) {
+    var square = squares[i];
+    square[0] += piece.rowNum;
+    square[1] += piece.colNum;
   }
 
   return squares;
+}
+
+function getSquaresForI(piece) {
+  var squares = [
+    [0, 0], [0, 1], [0, 2], [0, 3]
+  ];
+
+  return offsetSquares(piece, squares);
 }
 
 function getSquaresForO(piece) {
