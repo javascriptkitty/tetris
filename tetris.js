@@ -98,77 +98,51 @@ function getSquaresForI(piece) {
 }
 
 function getSquaresForO(piece) {
-  var squares = [];
-  for (i = 0; i < 2; i++) {
-    for (j = 0; j < 2; j++) {
-      var square = getSquare(piece.rowNum +j, piece.colNum + i);
-      squares.push(square);
-    }
-  }
-  return squares;
+  var squares = [
+    [0,0], [0, 1], [1, 0], [1, 1]
+  ];
+
+  return offsetSquares(piece, squares);
 }
 
 function getSquaresForZ(piece) {
-  var squares = [];
-  for (i = 0; i < 2; i++) {
-    for (j = 0; j < 2; j++) {
-     var shift = j == 1 ? 1 : 0;
-      var square = getSquare(piece.rowNum +j, piece.colNum + i + shift);
-      squares.push(square);
-    }
-  }
-  return squares;
+  var squares = [
+    [0, 0], [0, 1], [1, 1], [1, 2]
+  ];
+
+  return offsetSquares(piece, squares);
 }
 
 function getSquaresForS(piece) {
-  var squares = [];
-  for (i = 0; i < 2; i++) {
-    for (j = 0; j < 2; j++) {
-     var shift = j == 1 ? 1 : 0;
-      var square = getSquare(piece.rowNum +j, piece.colNum - i - shift);
-      squares.push(square);
-    }
-  }
-  return squares;
+  var squares = [
+    [0, 1], [0, 2], [1, 0], [1, 1]
+  ];
+
+  return offsetSquares(piece, squares);
 }
 
 function getSquaresForL(piece) {
-  var squares = [];
-  for (i = 0; i < 3; i++) {
-    var square = getSquare(piece.rowNum+i, piece.colNum);
-    squares.push(square);
-  }
+  var squares = [
+    [0, 0], [1, 0], [2, 0], [2, 1]
+  ];
 
-  var square = getSquare(piece.rowNum +2, piece.colNum+1);
-  squares.push(square);
-
-  return squares;
+  return offsetSquares(piece, squares);
 }
 
 function getSquaresForJ(piece) {
-  var squares = [];
-  for (i = 0; i < 3; i++) {
-    var square = getSquare(piece.rowNum+i, piece.colNum);
-    squares.push(square);
-  }
+  var squares = [
+    [2,0], [0, 1], [1, 1], [2, 1]
+  ];
 
-  var square = getSquare(piece.rowNum +2, piece.colNum-1);
-  squares.push(square);
-
-  return squares;
+  return offsetSquares(piece, squares);
 }
 
 function getSquaresForT(piece) {
-  var squares = [];
-  for (i = 0; i < 3; i++) {
-    var square = getSquare(piece.rowNum, piece.colNum+i);
-    squares.push(square);
-  }
+  var squares = [
+    [0, 1], [1, 0], [1, 1], [1, 2]
+  ];
 
-  var square = getSquare(piece.rowNum +1, piece.colNum+1);
-  squares.push(square);
-
-  return squares;
+  return offsetSquares(piece, squares);
 }
 
 function getSquaresForPiece(piece) {
