@@ -4,7 +4,7 @@
 
 var NUM_ROWS = 20;
 var NUM_COLS = 10;
-var TEMPO = 1000;
+var TEMPO = 1000000;
 var piece = null;
 var shapeTypes = ['I', 'O', 'Z', 'L', 'J', 'S', 'T'];
 
@@ -13,6 +13,7 @@ window.onload = function() {
   initializeGame();
 
   // update game every time interval
+  updateGame();
   setInterval(updateGame, TEMPO);
 };
 
@@ -123,10 +124,13 @@ function getSquaresForS(piece) {
 
 function getSquaresForL(piece) {
   var squares = [
-    [0, 0], [1, 0], [2, 0], [2, 1]
+    [ [0, 1], [1, 1], [2, 1], [2, 2] ],
+    [ [1, 0], [1, 1], [1, 2], [2, 0] ],
+    [ [0, 0], [0, 1], [1, 1], [2, 1] ],
+    [ [1, 0], [1, 1], [0, 2], [1, 2] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForJ(piece) {
@@ -190,7 +194,8 @@ function createPiece() {
   var piece = {
     rowNum: 0,
     colNum: 3,
-    type: shapeTypes[Math.floor(Math.random()*shapeTypes.length)]
+    type: 'L', //shapeTypes[[Math.floor(Math.random()*shapeTypes.length)]
+    rotateState: 0
   };
 
   return piece;
@@ -261,6 +266,12 @@ function movePieceDown(piece){
   }
 }
 
+function rotatePiece(piece){
+  erasePiece(piece);
+  piece.rotateState++;
+  drawPiece(piece, "cube " + getClassForPiece(piece));
+}
+
 function getBoundingBoxForPiece(piece){
   var squares = getSquaresForPiece(piece);
   var left, right, down;
@@ -300,5 +311,8 @@ function handleKey(event) {
   }
   else if (event.key == "ArrowDown"){
     movePieceDown(piece);
+  }
+  else if (event.key == "ArrowUp"){
+    rotatePiece(piece);
   }
 }
