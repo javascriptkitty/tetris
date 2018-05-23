@@ -4,7 +4,7 @@
 
 var NUM_ROWS = 20;
 var NUM_COLS = 10;
-var TEMPO = 1000000;
+var TEMPO = 1000;
 var piece = null;
 var shapeTypes = ['I', 'O', 'Z', 'L', 'J', 'S', 'T'];
 
@@ -92,34 +92,46 @@ function offsetSquares(piece, squares) {
 
 function getSquaresForI(piece) {
   var squares = [
-    [0, 0], [0, 1], [0, 2], [0, 3]
+    [ [0, 1], [1, 1], [2, 1], [3, 1] ],
+    [ [1, 0], [1, 1], [1, 2], [1, 3] ],
+    [ [0, 1], [1, 1], [2, 1], [3, 1] ],
+    [ [1, 0], [1, 1], [1, 2], [1, 3] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForO(piece) {
   var squares = [
-    [0,0], [0, 1], [1, 0], [1, 1]
+    [ [0, 0], [0, 1], [1, 0], [1, 1] ],
+    [ [0, 0], [0, 1], [1, 0], [1, 1] ],
+    [ [0, 0], [0, 1], [1, 0], [1, 1] ],
+    [ [0, 0], [0, 1], [1, 0], [1, 1] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForZ(piece) {
   var squares = [
-    [0, 0], [0, 1], [1, 1], [1, 2]
+    [ [1, 0], [1, 1], [2, 1], [2, 2] ],
+    [ [0, 1], [1, 0], [1, 1], [2, 0] ],
+    [ [1, 0], [1, 1], [2, 1], [2, 2] ],
+    [ [0, 1], [1, 0], [1, 1], [2, 0] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForS(piece) {
   var squares = [
-    [0, 1], [0, 2], [1, 0], [1, 1]
+    [ [0, 1], [0, 2], [1, 0], [1, 1] ],
+    [ [0, 0], [1, 0], [1, 1], [2, 1] ],
+    [ [0, 1], [0, 2], [1, 0], [1, 1] ],
+    [ [0, 0], [1, 0], [1, 1], [2, 1] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForL(piece) {
@@ -135,18 +147,24 @@ function getSquaresForL(piece) {
 
 function getSquaresForJ(piece) {
   var squares = [
-    [2,0], [0, 1], [1, 1], [2, 1]
+    [ [2, 0], [0, 1], [1, 1], [2, 1] ],
+    [ [0, 0], [1, 0], [1, 1], [1, 2] ],
+    [ [0, 1], [0, 2], [1, 1], [2, 1] ],
+    [ [1, 0], [1, 1], [1, 2], [2, 2] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForT(piece) {
   var squares = [
-    [0, 1], [1, 0], [1, 1], [1, 2]
+    [ [1, 0], [1, 1], [1, 2], [2, 1] ],
+    [ [0, 1], [1, 0], [1, 1], [2, 1] ],
+    [ [0, 1], [1, 1], [1, 0], [1, 2] ],
+    [ [0, 1], [1, 1], [1, 2], [2, 1] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForPiece(piece) {
@@ -194,7 +212,7 @@ function createPiece() {
   var piece = {
     rowNum: 0,
     colNum: 3,
-    type: 'L', //shapeTypes[[Math.floor(Math.random()*shapeTypes.length)]
+    type: shapeTypes[Math.floor(Math.random()*shapeTypes.length)],
     rotateState: 0
   };
 
