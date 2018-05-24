@@ -12,7 +12,6 @@ var shapeTypes = ['I', 'O', 'Z', 'L', 'J', 'S', 'T'];
 window.onload = function() {
   initializeGame();
 
-  // update game every time interval
   setInterval(updateGame, TEMPO);
 };
 
@@ -91,58 +90,70 @@ function offsetSquares(piece, squares) {
 
 function getSquaresForI(piece) {
   var squares = [
-    [0, 0], [0, 1], [0, 2], [0, 3]
+    [ [0, 1], [1, 1], [2, 1], [3, 1] ],
+    [ [1, 0], [1, 1], [1, 2], [1, 3] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForO(piece) {
   var squares = [
-    [0,0], [0, 1], [1, 0], [1, 1]
+    [ [0, 0], [0, 1], [1, 0], [1, 1] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForZ(piece) {
   var squares = [
-    [0, 0], [0, 1], [1, 1], [1, 2]
+    [ [1, 0], [1, 1], [2, 1], [2, 2] ],
+    [ [0, 1], [1, 0], [1, 1], [2, 0] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForS(piece) {
   var squares = [
-    [0, 1], [0, 2], [1, 0], [1, 1]
+    [ [0, 1], [0, 2], [1, 0], [1, 1] ],
+    [ [0, 0], [1, 0], [1, 1], [2, 1] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForL(piece) {
   var squares = [
-    [0, 0], [1, 0], [2, 0], [2, 1]
+    [ [0, 1], [1, 1], [2, 1], [2, 2] ],
+    [ [1, 0], [1, 1], [1, 2], [2, 0] ],
+    [ [0, 0], [0, 1], [1, 1], [2, 1] ],
+    [ [1, 0], [1, 1], [0, 2], [1, 2] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForJ(piece) {
   var squares = [
-    [2,0], [0, 1], [1, 1], [2, 1]
+    [ [2, 0], [0, 1], [1, 1], [2, 1] ],
+    [ [0, 0], [1, 0], [1, 1], [1, 2] ],
+    [ [0, 1], [0, 2], [1, 1], [2, 1] ],
+    [ [1, 0], [1, 1], [1, 2], [2, 2] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForT(piece) {
   var squares = [
-    [0, 1], [1, 0], [1, 1], [1, 2]
+    [ [1, 0], [1, 1], [1, 2], [2, 1] ],
+    [ [0, 1], [1, 0], [1, 1], [2, 1] ],
+    [ [0, 1], [1, 1], [1, 0], [1, 2] ],
+    [ [0, 1], [1, 1], [1, 2], [2, 1] ]
   ];
 
-  return offsetSquares(piece, squares);
+  return offsetSquares(piece, squares[piece.rotateState % squares.length]);
 }
 
 function getSquaresForPiece(piece) {
@@ -190,7 +201,8 @@ function createPiece() {
   var piece = {
     rowNum: 0,
     colNum: 3,
-    type: shapeTypes[Math.floor(Math.random()*shapeTypes.length)]
+    type: shapeTypes[Math.floor(Math.random()*shapeTypes.length)],
+    rotateState: 0
   };
 
   return piece;
@@ -261,6 +273,12 @@ function movePieceDown(piece){
   }
 }
 
+function rotatePiece(piece){
+  erasePiece(piece);
+  piece.rotateState++;
+  drawPiece(piece, "cube " + getClassForPiece(piece));
+}
+
 function getBoundingBoxForPiece(piece){
   var squares = getSquaresForPiece(piece);
   var left, right, down;
@@ -300,5 +318,8 @@ function handleKey(event) {
   }
   else if (event.key == "ArrowDown"){
     movePieceDown(piece);
+  }
+  else if (event.key == "ArrowUp"){
+    rotatePiece(piece);
   }
 }
