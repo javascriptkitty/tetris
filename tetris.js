@@ -12,8 +12,6 @@ var shapeTypes = ['I', 'O', 'Z', 'L', 'J', 'S', 'T'];
 window.onload = function() {
   initializeGame();
 
-  // update game every time interval
-  updateGame();
   setInterval(updateGame, TEMPO);
 };
 
@@ -93,8 +91,6 @@ function offsetSquares(piece, squares) {
 function getSquaresForI(piece) {
   var squares = [
     [ [0, 1], [1, 1], [2, 1], [3, 1] ],
-    [ [1, 0], [1, 1], [1, 2], [1, 3] ],
-    [ [0, 1], [1, 1], [2, 1], [3, 1] ],
     [ [1, 0], [1, 1], [1, 2], [1, 3] ]
   ];
 
@@ -103,9 +99,6 @@ function getSquaresForI(piece) {
 
 function getSquaresForO(piece) {
   var squares = [
-    [ [0, 0], [0, 1], [1, 0], [1, 1] ],
-    [ [0, 0], [0, 1], [1, 0], [1, 1] ],
-    [ [0, 0], [0, 1], [1, 0], [1, 1] ],
     [ [0, 0], [0, 1], [1, 0], [1, 1] ]
   ];
 
@@ -115,8 +108,6 @@ function getSquaresForO(piece) {
 function getSquaresForZ(piece) {
   var squares = [
     [ [1, 0], [1, 1], [2, 1], [2, 2] ],
-    [ [0, 1], [1, 0], [1, 1], [2, 0] ],
-    [ [1, 0], [1, 1], [2, 1], [2, 2] ],
     [ [0, 1], [1, 0], [1, 1], [2, 0] ]
   ];
 
@@ -125,8 +116,6 @@ function getSquaresForZ(piece) {
 
 function getSquaresForS(piece) {
   var squares = [
-    [ [0, 1], [0, 2], [1, 0], [1, 1] ],
-    [ [0, 0], [1, 0], [1, 1], [2, 1] ],
     [ [0, 1], [0, 2], [1, 0], [1, 1] ],
     [ [0, 0], [1, 0], [1, 1], [2, 1] ]
   ];
